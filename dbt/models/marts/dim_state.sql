@@ -20,7 +20,8 @@ state_codes AS (
 SELECT
   s.state_code,
   s.state_name,
-  p.population
+  p.population,
+  DATE '2021-07-01'  AS population_date   -- Census 2021 1-year estimate (mid-year reference date)
 FROM state_codes AS s
 JOIN population AS p
   ON s.state_fips = p.state_fips

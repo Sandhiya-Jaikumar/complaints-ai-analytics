@@ -1,0 +1,82 @@
+version: 2
+
+metrics:
+  - name: timely_response_rate
+    label: Timely response rate
+    description: Share of complaints the company answered within the CFPB time limit.
+    type: ratio
+    type_params:
+      numerator: timely_complaints
+      denominator: complaints
+
+  - name: never_answered_rate
+    label: Never answered rate
+    description: Share of complaints the company never answered.
+    type: ratio
+    type_params:
+      numerator: never_answered_complaints
+      denominator: complaints
+
+  - name: monetary_relief_rate
+    label: Monetary relief rate
+    description: Share of closed complaints where the consumer got money back.
+    type: ratio
+    type_params:
+      numerator: monetary_relief_complaints
+      denominator: closed_complaints
+
+  - name: any_relief_rate
+    label: Any relief rate
+    description: Share of closed complaints with monetary or non-monetary relief.
+    type: ratio
+    type_params:
+      numerator: any_relief_complaints
+      denominator: closed_complaints
+
+  - name: narrative_share
+    label: Narrative share
+    description: Share of complaints that include the consumer's written story.
+    type: ratio
+    type_params:
+      numerator: complaints_with_story
+      denominator: complaints
+
+  - name: copied_story_share
+    label: Copied story share
+    description: Share of complaints whose written story is a copy-paste template.
+    type: ratio
+    type_params:
+      numerator: copied_story_complaints
+      denominator: complaints
+
+  - name: complaints_excl_copies
+    label: Complaints excluding copy-pasted stories
+    description: Complaints, leaving out copy-paste template campaigns.
+    type: simple
+    type_params:
+      measure: complaints
+    filter: |
+      {{ Dimension('complaint__is_copied_story') }} = false
+
+  - name: complaints_yoy_growth
+    label: Complaints growth vs same period last year
+    description: Change in complaints versus the same period one year earlier. Group by a time grain (month, quarter or year).
+    type: derived
+    type_params:
+      expr: (current_complaints - prior_year_complaints) / prior_year_complaints
+      metrics:
+        - name: complaints
+          alias: current_complaints
+        - name: complaints
+          offset_window: 1 year
+          alias: prior_year_complaints
+
+  - name: complaints_per_100k_residents
+    label: Complaints per 100,000 residents
+    description: Complaints adjusted for state population (2021). Group by state.
+    type: derived
+    type_params:
+      expr: complaints * 100000 / population
+      metrics:
+        - name: complaints
+        - name: population

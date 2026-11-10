@@ -1,0 +1,128 @@
+version: 2
+
+semantic_models:
+  - name: complaints
+    description: One row per complaint in the analysis (Jan 2024 - Jun 2026, 6 bank and payments products).
+    model: ref('fct_complaints')
+    defaults:
+      agg_time_dimension: date_received
+
+    entities:
+      - name: complaint
+        type: primary
+        expr: complaint_id
+      - name: company
+        type: foreign
+        expr: company_key
+      - name: state
+        type: foreign
+        expr: state
+
+    dimensions:
+      - name: date_received
+        type: time
+        type_params:
+          time_granularity: day
+      - name: product
+        type: categorical
+      - name: sub_product
+        type: categorical
+      - name: issue
+        type: categorical
+      - name: sub_issue
+        type: categorical
+      - name: company_response
+        type: categorical
+      - name: submitted_via
+        type: categorical
+      - name: is_copied_story
+        type: categorical
+      - name: is_credit_bureau
+        type: categorical
+      - name: has_story
+        type: categorical
+      - name: is_older_american
+        type: categorical
+      - name: is_servicemember
+        type: categorical
+
+    measures:
+      - name: complaints
+        description: Number of complaints.
+        agg: count
+        expr: complaint_id
+        create_metric: true
+      - name: closed_complaints
+        description: Complaints the company closed (response starts with "Closed").
+        agg: sum
+        expr: CASE WHEN is_closed THEN 1 ELSE 0 END
+        create_metric: true
+      - name: timely_complaints
+        description: Complaints answered within the CFPB time limit.
+        agg: sum
+        expr: CASE WHEN is_timely THEN 1 ELSE 0 END
+        create_metric: true
+      - name: never_answered_complaints
+        description: Complaints the company never answered ("Untimely response").
+        agg: sum
+        expr: CASE WHEN is_no_response THEN 1 ELSE 0 END
+        create_metric: true
+      - name: monetary_relief_complaints
+        description: Closed complaints where the consumer got money back.
+        agg: sum
+        expr: CASE WHEN is_monetary_relief THEN 1 ELSE 0 END
+        create_metric: true
+      - name: any_relief_complaints
+        description: Closed complaints with monetary or non-monetary relief.
+        agg: sum
+        expr: CASE WHEN is_any_relief THEN 1 ELSE 0 END
+        create_metric: true
+      - name: complaints_with_story
+        description: Complaints that include the consumer's written story.
+        agg: sum
+        expr: CASE WHEN has_story THEN 1 ELSE 0 END
+        create_metric: true
+      - name: copied_story_complaints
+        description: Complaints whose written story is an exact copy of another (template campaigns).
+        agg: sum
+        expr: CASE WHEN is_copied_story THEN 1 ELSE 0 END
+        create_metric: true
+      - name: avg_days_to_company
+        description: Average days between the CFPB receiving a complaint and sending it to the company.
+        agg: average
+        expr: days_to_company
+        create_metric: true
+
+  - name: companies
+    description: One row per company (spellings merged).
+    model: ref('dim_company')
+    entities:
+      - name: company
+        type: primary
+        expr: company_key
+    dimensions:
+      - name: company_name
+        type: categorical
+
+  - name: states
+    description: One row per U.S. state plus DC, with 2021 population.
+    model: ref('dim_state')
+    defaults:
+      agg_time_dimension: population_date
+    entities:
+      - name: state
+        type: primary
+        expr: state_code
+    dimensions:
+      - name: state_name
+        type: categorical
+      - name: population_date
+        type: time
+        type_params:
+          time_granularity: day
+    measures:
+      - name: population
+        description: 2021 population (U.S. Census ACS 1-year). Use with complaints per 100,000 residents, grouped by state.
+        agg: sum
+        expr: population
+        create_metric: true
