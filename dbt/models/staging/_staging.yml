@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: stg_complaints
+    description: One row per complaint (Sep 2023 - Aug 2026, every product except credit reporting). Types fixed, text tidied, every scope and quality rule stored as a yes/no flag.
+    columns:
+      - name: complaint_id
+        description: CFPB complaint ID. Primary key.
+        data_tests:
+          - unique
+          - not_null
+      - name: date_received
+        description: Date the CFPB received the complaint.
+        data_tests:
+          - not_null

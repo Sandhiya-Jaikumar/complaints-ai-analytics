@@ -1,0 +1,81 @@
+version: 2
+
+models:
+  - name: fct_complaints
+    description: One row per complaint in the analysis - received Jan 1, 2024 to Jun 30, 2026, in 6 bank and payments products (credit card, checking or savings, money transfer apps, mortgage, vehicle loan, prepaid card).
+    columns:
+      - name: complaint_id
+        description: CFPB complaint ID. Primary key.
+        data_tests:
+          - unique
+          - not_null
+      - name: date_received
+        description: Date the CFPB received the complaint.
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
+      - name: company_key
+        description: Company the complaint is about (upper case, so different spellings are merged).
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_company')
+                field: company_key
+      - name: product
+        description: Product the consumer selected.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Credit card', 'Checking or savings account', 'Money transfer, virtual currency, or money service', 'Mortgage', 'Vehicle loan or lease', 'Prepaid card']
+      - name: company_response
+        description: How the company responded. "Untimely response" means the company never answered.
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Closed with explanation', 'Closed with non-monetary relief', 'Closed with monetary relief', 'Untimely response', 'In progress']
+      - name: timely_response
+        description: Whether the company responded within the CFPB time limit (Yes or No).
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Yes', 'No']
+      - name: is_closed
+        description: True when the company response starts with "Closed".
+      - name: is_monetary_relief
+        description: True when the complaint was closed with monetary relief (the consumer got money back).
+      - name: is_copied_story
+        description: True when the exact same written story appears more than once (a copy-paste template campaign).
+
+  - name: dim_company
+    description: One row per company (spellings merged). Display name is the most common spelling.
+    columns:
+      - name: company_key
+        description: Company key (upper case). Primary key.
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_date
+    description: One row per day from Jan 1, 2024 to Jun 30, 2026.
+    columns:
+      - name: date_day
+        description: Calendar date. Primary key.
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_state
+    description: One row per U.S. state plus DC with 2021 population (U.S. Census ACS 1-year), used for complaints per 100,000 residents.
+    columns:
+      - name: state_code
+        description: Two-letter state code. Primary key.
+        data_tests:
+          - unique
+          - not_null
+      - name: population
+        description: 2021 population estimate.
+        data_tests:
+          - not_null
