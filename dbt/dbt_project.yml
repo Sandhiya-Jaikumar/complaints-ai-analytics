@@ -1,0 +1,20 @@
+name: 'complaints_ai_analytics'
+version: '1.0.0'
+profile: 'complaints_ai_analytics'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Staging models are views (no storage); mart models are tables (fast for Power BI and the AI assistant)
+models:
+  complaints_ai_analytics:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

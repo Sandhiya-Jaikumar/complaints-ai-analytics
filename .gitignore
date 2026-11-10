@@ -220,3 +220,7 @@ __marimo__/
 .streamlit/secrets.toml
 # Mac system files
 .DS_Store
+# dbt temporary files
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
