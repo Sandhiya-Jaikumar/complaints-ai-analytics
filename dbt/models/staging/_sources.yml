@@ -10,3 +10,17 @@ sources:
         description: One row per complaint, all columns as text, plus source_file (which archive file the row came from).
       - name: complaints_monthly_all_products
         description: Complaint and written-story counts for ALL products (including credit reporting) by month, for context.
+  - name: census
+    database: bigquery-public-data
+    schema: census_bureau_acs
+    description: U.S. Census Bureau American Community Survey (free BigQuery public dataset).
+    tables:
+      - name: state_2021_1yr
+        description: State population estimates for 2021, the newest state table available in BigQuery public data.
+
+  - name: geo
+    database: bigquery-public-data
+    schema: geo_us_boundaries
+    description: U.S. boundaries (free BigQuery public dataset), used to match Census state IDs to two-letter state codes.
+    tables:
+      - name: states
