@@ -75,7 +75,9 @@ SELECT
     'OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'
   ), FALSE)                                                  AS is_state_or_dc,
   COALESCE(REGEXP_CONTAINS(t.tags, r'Older American'), FALSE) AS is_older_american,
-  COALESCE(REGEXP_CONTAINS(t.tags, r'Servicemember'), FALSE)  AS is_servicemember
+  COALESCE(REGEXP_CONTAINS(t.tags, r'Servicemember'), FALSE)  AS is_servicemember,
+-- Credit bureaus: their complaints are credit report disputes even when filed under a bank product
+  COALESCE(REGEXP_CONTAINS(t.company_key, r'^(EQUIFAX|TRANSUNION|EXPERIAN)'), FALSE) AS is_credit_bureau
 
 FROM typed AS t
 LEFT JOIN story_counts AS sc

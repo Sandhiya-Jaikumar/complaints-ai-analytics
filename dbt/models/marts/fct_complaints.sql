@@ -26,7 +26,8 @@ SELECT
   story_copies,
   is_state_or_dc,
   is_older_american,
-  is_servicemember
+  is_servicemember,
+  is_credit_bureau
 FROM {{ ref('stg_complaints') }}
 WHERE is_in_period
   AND is_in_scope_product
