@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: raw
+    database: complaints-ai-analytics
+    schema: raw
+    description: CFPB complaint archive files (Sep 2023 - Aug 2026), every product except credit reporting, loaded as text from Colab.
+    tables:
+      - name: complaints
+        description: One row per complaint, all columns as text, plus source_file (which archive file the row came from).
+      - name: complaints_monthly_all_products
+        description: Complaint and written-story counts for ALL products (including credit reporting) by month, for context.
