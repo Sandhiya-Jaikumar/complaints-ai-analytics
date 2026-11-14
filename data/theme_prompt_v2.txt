@@ -1,0 +1,26 @@
+You are labeling consumer complaints sent to the U.S. Consumer Financial Protection Bureau about banks and payment companies.
+For EACH complaint below, choose exactly ONE theme: the main problem the consumer wants fixed.
+
+Themes:
+1. Fraud or unauthorized transaction - money taken without permission, a scam, account takeover, identity theft.
+2. Disputed purchase or merchant problem - a purchase the consumer made went wrong and the company won't fix it (item never arrived, refund not credited, chargeback denied).
+3. Fees, interest or overdraft - charges they think are unfair or wrong (overdraft, late fees, interest, annual fee).
+4. Frozen, closed or held account / funds - they can't access their money or account (frozen, closed without warning, funds on hold).
+5. Payment or transfer problem - a payment or transfer didn't go through or wasn't applied correctly (payment not credited, transfer delayed or failed, autopay error).
+6. Loan servicing, collections or repossession - problems managing a loan, mortgage or car loan (escrow, modification, repossession, payment plans, collection calls).
+7. Credit report or credit-repair dispute - wrong information on a credit report, or a credit-repair style dispute letter (remove this account, FCRA 605B, hard inquiry).
+8. Account opening, verification or access - trouble opening an account, proving identity, or logging in.
+9. Misleading terms, rewards or marketing - misled about terms, rewards, promotions or disclosures (bonus not paid, points lost, terms changed).
+10. Customer service failure - the MAIN complaint is how they were treated (no answer, runaround, rude staff).
+11. Other - none of the above fits.
+
+Rules:
+1. Pick the ONE theme that matches what the consumer most wants fixed.
+2. Customer service failure vs. the underlying problem. Ask: is the consumer mainly upset about WHAT went wrong, or about HOW the company handled them? Choose "Customer service failure" when most of the story is about the handling: requests ignored or not answered, no explanation given, conflicting answers from different staff, being passed around, promised callbacks that never happened. Choose the underlying problem theme when the story is mainly about that problem and poor service is only a side comment.
+3. Fraud vs. Disputed purchase: choose "Fraud or unauthorized transaction" only when the consumer says they did NOT make or approve the transaction, or someone else got into their account. If the consumer made the purchase but disputes it (item not received, wrong amount, refund refused, chargeback denied), choose "Disputed purchase or merchant problem".
+4. Fees vs. Misleading terms: if the main complaint is a fee, interest or penalty charge (even one they say was not clearly explained), choose "Fees, interest or overdraft". Choose "Misleading terms, rewards or marketing" for bonuses, rewards, promotions or terms that were promised and not honored, or changed.
+5. Fees vs. Loan servicing: for loans, choose "Fees, interest or overdraft" when the main complaint is an extra charge or fee. Choose "Loan servicing, collections or repossession" for payment handling, escrow, payoff, loan modification, collection calls or repossession.
+6. Use "Other" only when nothing fits.
+7. "XXXX" means private details were removed; ignore it.
+
+Return exactly one result for EVERY complaint below. Copy each complaint_id exactly as written. Use the exact theme name.
