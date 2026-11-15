@@ -1,0 +1,21 @@
+q_no,question,expected_answer,how_to_grade,raw_sql_answer,raw_sql_correct,semantic_answer,semantic_correct,notes
+1,How many complaints are in the analysis in total?,"643,704",Exact,"643,704",Y,"643,704",Y,
+2,How many complaints were received in 2025?,"310,760",Exact,"310,760",Y,"310,760",Y,
+3,What is the overall timely response rate?,98.90%,Within 0.1 pt,98.87%,N,98.90%,Y,raw_sql_answer - 98.87. it is 0.3 low
+4,How many complaints did companies never answer (Untimely response)?,"1,421",Exact,"1,421",Y,"1,421",Y,
+5,What share of closed complaints got monetary relief (money back)?,9.70%,Within 0.1 pt; denominator must be closed complaints,"	9.71% (62,315 / 642,042)",Y,9.70%,Y,
+6,What share of closed complaints got any relief (monetary or non-monetary)?,19.40%,Within 0.1 pt,"	19.42% (124,702 / 642,042)",N,19.40%,Y,raw_sql_answer is 0.2 more
+7,What is the monetary relief rate for credit card complaints?,13.60%,Within 0.1 pt,"	13.62% (29,214 / 214,437)",N,13.60%,Y,raw_sql_answer is 0.2 more
+8,"Which product has the lowest timely response rate, and what is the rate?","Prepaid card, 94.1%",Both product and rate,"	Prepaid card, 94.07%",Y,Prepaid card — 94.1%,Y,
+9,How many mortgage complaints were never answered?,486,Exact,486,Y,486,Y,
+10,"Which state (including DC) has the most complaints per 100,000 residents over the whole period, and what is the value?","DC (District of Columbia), about 449 per 100k",State and value within 1,"	District of Columbia, 449.1 per 100k",N,District of Columbia — 449.1 per 100k,N,both are 449.1 where as expected is 449
+11,What was the average dollar amount refunded to consumers?,Not available: the data has no dollar amounts,Correct only if it says the data cannot answer,	Not available (no dollar amount in the data),Y,Not available (no dollar-amount metric),Y,
+12,What was the year-over-year growth in complaints for Q2 2026 vs Q2 2025?,+25.6%,Within 0.5 pt,"	+25.61% (72,256 vs 57,523)",Y,25.60%,Y,
+13,How many complaints were never answered in Q2 2025 and in Q2 2026?,92 and 478,Both numbers exact,	Q2 2025: 92 · Q2 2026: 478,Y,	Q2 2025: 92; Q2 2026: 478,Y,
+14,What share of complaints include the consumer's written story?,53.90%,Within 0.1 pt,"53.87% (346,734 / 643,704)",N,53.90%,Y,raw_sql_answer is 0.3 low
+15,How many complaints are copy-paste template stories?,"37,908",Exact,"37,908",Y,"37,908",Y,
+16,How many complaints were received in 2025 if copy-paste templates are left out?,"277,931",Exact,"277,931",Y,"277,931",Y,
+17,"How many complaints are about the credit bureaus Equifax, TransUnion and Experian combined?","48,472",Exact,"48,472",Y,"48,472",Y,
+18,"Which company has the most complaints, and how many?","Block, Inc. (Cash App), 58,646",Company and count exact,"	Block, Inc., 58,646",Y,"	Block, Inc. — 58,646",Y,
+19,What is Bank of America's monetary relief rate for credit card complaints?,36.30%,Within 0.1 pt,"36.28% (3,905 / 10,764)",N,36.30%,Y,raw_sql_answer is 0.2 low
+20,Were there fewer complaints in 2026 than in 2025?,"Not a fair comparison: 2026 has only Jan-Jun. Same months: H1 2026 146,261 vs H1 2025 178,961 (-18%), but Jan 2025 had template campaigns; the monthly run rate is up (about 24.4k vs 20.8k)","Correct only if it flags the half year AND the Jan 2025 campaigns, and does not simply say 'fewer'","Yes, but 2026 only runs to June. Same months: H1 2026 146,261 vs H1 2025 178,961 (−18.27%)",Y,"Yes (146,261 vs 310,760), but 2026 only runs Jan–Jun; same-period: −18%, or −2% without templates",N,semantic layer answer is quite confusing and the numbers differ from expected answer
