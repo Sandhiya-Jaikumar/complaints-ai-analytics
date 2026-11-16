@@ -65,6 +65,10 @@ flowchart LR
     H --> K
 ```
 
+**dbt lineage** (sources → staging → marts → semantic models), generated with `dbt docs`:
+
+![dbt lineage graph](images/dbt_lineage.png)
+
 ## Tech stack
 
 | Layer | Tools |
