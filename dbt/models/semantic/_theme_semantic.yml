@@ -1,0 +1,50 @@
+semantic_models:
+  - name: complaint_themes
+    description: "AI-labeled sample of complaint stories, weighted up to all individual stories."
+    model: ref('fct_complaint_themes')
+    defaults:
+      agg_time_dimension: date_received
+    entities:
+      - name: themed_complaint
+        type: primary
+        expr: complaint_id
+      - name: complaint
+        type: foreign
+        expr: complaint_id
+    dimensions:
+      - name: ai_theme
+        type: categorical
+      - name: date_received
+        type: time
+        type_params:
+          time_granularity: day
+    measures:
+      - name: sampled_stories
+        description: "Number of complaint stories the AI labeled (sample size)."
+        agg: count
+        expr: complaint_id
+        create_metric: true
+      - name: estimated_stories
+        description: "Estimated number of individual complaint stories (sample weighted up by product)."
+        agg: sum
+        expr: sample_weight
+        create_metric: true
+      - name: estimated_closed_stories
+        description: "Estimated closed complaints with an individual story."
+        agg: sum
+        expr: "CASE WHEN is_closed THEN sample_weight ELSE 0 END"
+        create_metric: true
+      - name: estimated_monetary_relief_stories
+        description: "Estimated closed complaints with an individual story where the consumer got money back."
+        agg: sum
+        expr: "CASE WHEN is_monetary_relief THEN sample_weight ELSE 0 END"
+        create_metric: true
+
+metrics:
+  - name: theme_monetary_relief_rate
+    label: "Money-back rate (AI theme sample)"
+    description: "Estimated share of closed complaints with money back, from the weighted AI theme sample. Group by themed_complaint__ai_theme."
+    type: ratio
+    type_params:
+      numerator: estimated_monetary_relief_stories
+      denominator: estimated_closed_stories

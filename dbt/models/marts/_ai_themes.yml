@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: fct_complaint_themes
+    description: >
+      AI theme (Gemini 3.6 Flash, prompt v2) for a stratified random sample of 900 complaints
+      with an individual written story (150 per product, copy-paste templates excluded).
+      sample_weight scales each product's sample up to all such stories in that product,
+      so weighted totals estimate theme counts for all 308,826 individual stories.
+      Accuracy vs a blind-reviewed human answer key: about 69% on a held-out set;
+      "Customer service failure" is under-counted by the AI.
+    columns:
+      - name: complaint_id
+        data_tests:
+          - unique
+          - not_null
+      - name: ai_theme
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - "Fraud or unauthorized transaction"
+                  - "Disputed purchase or merchant problem"
+                  - "Fees, interest or overdraft"
+                  - "Frozen, closed or held account / funds"
+                  - "Payment or transfer problem"
+                  - "Loan servicing, collections or repossession"
+                  - "Credit report or credit-repair dispute"
+                  - "Account opening, verification or access"
+                  - "Misleading terms, rewards or marketing"
+                  - "Customer service failure"
+                  - "Other"
+      - name: sample_weight
+        data_tests:
+          - not_null

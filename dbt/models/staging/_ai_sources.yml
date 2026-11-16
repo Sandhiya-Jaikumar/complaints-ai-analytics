@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: ai
+    description: "Output of the AI theme classification (Colab notebook 03)."
+    database: complaints-ai-analytics
+    schema: raw
+    tables:
+      - name: ai_complaint_themes
+        description: "One AI theme per sampled complaint story (Gemini 3.6 Flash, prompt v2)."
