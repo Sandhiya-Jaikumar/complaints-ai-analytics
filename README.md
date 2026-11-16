@@ -4,7 +4,7 @@
 
 An end-to-end analytics project on **643,704 CFPB consumer complaints** (Jan 2024 – Jun 2026): a tested dbt pipeline on BigQuery, a governed **semantic layer** (MetricFlow), **AI theme classification** of complaint stories (validated against a blind-reviewed human answer key), an **MCP server** that lets an AI assistant query the governed metrics, and a **Tableau Public** dashboard.
 
-**[View the interactive dashboard on Tableau Public](https://public.tableau.com/app/profile/sandhiya3216/viz/ComplaintIntelligence-CFPBComplaints2024-2026/Dashboard1)** · [Executive memo](docs/executive_memo.md) · [AI evaluation report](docs/ai_evaluation_report.md)
+**[View the interactive dashboard on Tableau Public](https://public.tableau.com/app/profile/sandhiya3216/viz/ComplaintIntelligence-CFPBComplaints2024-2026/Dashboard1)** · [Executive memo](docs/executive_memo.md) · [Project brief](docs/project_brief.md) · [Data quality log](docs/data_quality_log.md) · [AI evaluation report](docs/ai_evaluation_report.md)
 
 ![Complaint Intelligence dashboard](images/tableau_dashboard.png)
 
@@ -142,7 +142,7 @@ sql/             01 data audit · 02–03 pipeline checks · 04–05 Exec Q1/Q2 
 dbt/             models/staging · models/marts · models/semantic (metrics) · tests
 mcp_server/      MCP server exposing the semantic layer to an AI assistant
 data/            answer key, blind review, AI results, big-run labels, Tableau extracts
-docs/            theme definitions · AI evaluation report · executive memo · MCP test
+docs/            project brief · data quality log · theme definitions · AI evaluation report · executive memo · MCP test
 images/          dbt lineage · dashboard
 ```
 
